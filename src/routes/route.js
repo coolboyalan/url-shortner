@@ -1,5 +1,5 @@
-const express = require("express")
-const urlController = require("../controllers/urlController")
+import express from "express"
+import urlController from "../controllers/urlController.js"
 const router = express.Router()
 
 // POST API TO CREATE A SHORT URL
@@ -13,4 +13,4 @@ router.all("*", function (req, res) {
     res.status(404).send({ status: false, message: "you're on a wrong route" });
   });
 
-module.exports = router
+export default router

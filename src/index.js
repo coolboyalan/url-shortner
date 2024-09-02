@@ -1,11 +1,10 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyparser = require("body-parser");
-const route = require("./routes/route");
-const { connectDB } = require("./config/db");
+import express from "express"
+import mongoose from "mongoose"
+import route from "./routes/route.js";
+import { connectDB } from "./config/db.js"
 
 const app = express();
-app.use(bodyparser.json());
+app.use(express.json());
 
 connectDB();
 

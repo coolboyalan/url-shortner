@@ -1,14 +1,11 @@
-const urlModel = require("../models/urlModel");
-const validator = require("validator");
-const redis = require("redis");
-const { promisify } = require("util");
-const redisClient = redis.createClient(
-  12180,
-  "redis-12180.c212.ap-south-1-1.ec2.cloud.redislabs.com",
-  { no_ready_check: true }
-);
-redisClient.auth("J9z2aQOHrDsXdSsYTtb3XMY2K8uLDYv2", function (err) {
-  if (err) throw err;
+import "dotenv"
+import urlModel from "../models/urlModel.js"
+import validator from "validator"
+import redis from "redis"
+import { promisify } from "util"
+
+const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, {
+  no_ready_check: true,
 });
 
 redisClient.on("connect", async function () {
@@ -46,8 +43,8 @@ const shortURL = async (req, res) => {
       url = url.replace("https://", "http://");
     }
 
-    if(!url.match("http://")){
-      url = `http://${url}`
+    if (!url.match("http://")) {
+      url = `http://${url}`;
     }
     if (url.match("//www.")) url = url.replace("www.", "");
 
@@ -110,7 +107,7 @@ const getURL = async (req, res) => {
   }
 };
 
-module.exports = {
+export default {
   shortURL,
   getURL,
 };
